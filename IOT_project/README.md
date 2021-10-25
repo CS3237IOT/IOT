@@ -3,8 +3,8 @@
 ## Instructions
 
 For 1 Sensor (hand): 
-run python3 cc2650_1s.py 
-run python3 middle_1s.py 
+1. `run python3 cc2650_1s.py` 
+1. `run python3 middle_1s.py` 
 
 For 2 Sensor(hand+body): 
 run python3 cc2650_1s.py 
