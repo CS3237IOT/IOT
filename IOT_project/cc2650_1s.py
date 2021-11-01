@@ -2,11 +2,9 @@
 """
 TI CC2650 SensorTag
 -------------------
-
 Adapted by Ashwin from the following sources:
  - https://github.com/IanHarvey/bluepy/blob/a7f5db1a31dba50f77454e036b5ee05c3b7e2d6e/bluepy/sensortag.py
  - https://github.com/hbldh/bleak/blob/develop/examples/sensortag.py
-
 """
 import asyncio
 import platform
@@ -16,6 +14,7 @@ from mqtt import Publisher
 import json
 import joblib
 import numpy as np
+import datetime
 
 
 
@@ -51,6 +50,17 @@ global bmz_mean
 bmz_mean = 0
 
 
+global accelx_arr
+accelx_arr = []
+
+global accely_arr
+accely_arr = []
+
+global accelz_arr
+accelz_arr = []
+
+
+
 
 # magnitude values currently not in used
 
@@ -69,10 +79,8 @@ class Service:
     """
     Here is a good documentation about the concepts in ble;
     https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt
-
     In TI SensorTag there is a control characteristic and a data characteristic which define a service or sensor
     like the Light Sensor, Humidity Sensor etc
-
     Please take a look at the official TI user guide as well at
     https://processors.wiki.ti.com/index.php/CC2650_SensorTag_User's_Guide
     """
@@ -193,13 +201,17 @@ class MovementSensorMPU9250(Sensor):
         bmy_mean = bmy_mean + dataDict["magnetY"]
         bmz_mean = bmz_mean + dataDict["magnetZ"]
 
+        accelx_arr.append(dataDict["accelX"])
+        # accely_arr.append(dataDict["accelX"])
+        # accelz_arr.append(dataDict["accelX"])
 
         #send data to mqtt subscriber.
         """
         Right now count is set as 5 because MC's model use 5s interval for training and our laptop ble transfer is 1s interval.
         Remeber to adjust accordingly to how you build the model and the ble laptop transfer sampling rate
         """
-        if count == 5:
+
+        if count == 50:
             arr.append(bax_mean/count)
             arr.append(bay_mean/count)
             arr.append(baz_mean/count)
@@ -208,9 +220,9 @@ class MovementSensorMPU9250(Sensor):
             arr.append(bgy_mean/count)
             arr.append(bgz_mean/count)
 
-            arr.append(bmx_mean/count)
-            arr.append(bmy_mean/count)
-            arr.append(bmz_mean/count)
+            # arr.append(bmx_mean/count)
+            # arr.append(bmy_mean/count)
+            # arr.append(bmz_mean/count)
 
             # magnitude not in used
             # arr.append(np.sqrt((bax_mean/count)**2 + (bay_mean/count)**2 + (baz_mean/count)**2))
@@ -219,7 +231,8 @@ class MovementSensorMPU9250(Sensor):
 
             json_msg = {
                 'sensor': 1,
-                'payload': arr
+                'payload': arr,
+                 'peak': accelx_arr
             }
             mqtt_pub.publish(json.dumps(json_msg))
 
@@ -235,6 +248,7 @@ class MovementSensorMPU9250(Sensor):
             bmx_mean = 0
             bmy_mean = 0
             bmz_mean = 0
+            accelx_arr.clear()
             arr.clear()
 
 
@@ -255,6 +269,7 @@ class AccelerometerSensorMovementSensorMPU9250(MovementSensorMPU9250SubService):
         rawVals = data[3:6]
         valueTup = tuple([ v*self.scale for v in rawVals ])
         dictValue = {"accelX" : valueTup[0] , "accelY": valueTup[1], "accelZ": valueTup[2]}
+        #print(datetime.datetime.now())
         #print("[MovementSensor] Accelerometer:", dictValue)
         return dictValue
 
@@ -288,7 +303,7 @@ class GyroscopeSensorMovementSensorMPU9250(MovementSensorMPU9250SubService):
         rawVals = data[0:3]
         valueTup = tuple([ v*self.scale for v in rawVals ])
         dictValue = {"gyroX" : valueTup[0] , "gyroY": valueTup[1], "gyroZ": valueTup[2]}
-        #print("[MovementSensor] Gyroscope:", dictValue)
+        print("[MovementSensor] Gyroscope:", dictValue)
         return dictValue
 
 
@@ -344,7 +359,6 @@ class LEDAndBuzzer(Service):
     """
         Adapted from various sources. Src: https://evothings.com/forum/viewtopic.php?t=1514 and the original TI spec
         from https://processors.wiki.ti.com/index.php/CC2650_SensorTag_User's_Guide#Activating_IO
-
         Codes:
             1 = red
             2 = green
