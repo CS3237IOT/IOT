@@ -31,17 +31,19 @@ count = 0
 
 
 global bax_mean
-bax_mean = 0
+bax_mean = []
 global bay_mean
-bay_mean = 0
+bay_mean = []
 global baz_mean
-baz_mean = 0
+baz_mean = []
 global bgx_mean
-bgx_mean = 0
+bgx_mean = []
 global bgy_mean
-bgy_mean = 0
+bgy_mean = []
 global bgz_mean
-bgz_mean = 9
+bgz_mean = []
+
+
 global bmx_mean
 bmx_mean = 0
 global bmy_mean
@@ -64,14 +66,14 @@ accelz_arr = []
 
 # magnitude values currently not in used
 
-# global accel_mag
-# accel_mag = 0
-#
-# global gyro_mag
-# gyro_mag = 0
-#
-# global  mag_mag
-# mag_mag = 0
+global accel_mag
+accel_mag = 0
+
+global gyro_mag
+gyro_mag = 0
+
+global  mag_mag
+mag_mag = 0
 
 
 class Service:
@@ -96,6 +98,7 @@ class Service:
 
 
 class Sensor(Service):
+
 
     def callback(self, sender: int, data: bytearray):
         raise NotImplementedError()
@@ -163,9 +166,9 @@ class MovementSensorMPU9250(Sensor):
 
     def callback(self, sender: int, data: bytearray):
 
-        # global accel_mag
-        # global gyro_mag
-        # global  mag_mag
+        global accel_mag
+        global gyro_mag
+        global  mag_mag
 
         global count
         count = count + 1
@@ -190,18 +193,27 @@ class MovementSensorMPU9250(Sensor):
             value = cb(unpacked_data)
             dataDict.update(value)
 
+        #top20_df = df[['hax_p25', 'hgy_p75', 'hay_median', 'hgx_mean', 'hgy_mean', 'hgx_p25', 'hax_median', 'hay_p75', 'hgy_p25', 'hax_p10', 'hgx_median', 'hay_p90', 'hgx_p10', 'hay_min', 'hax_max', 'haz_median', 'hay_mean', 'hax_mean', 'hgy_var', 'hgz_min', 'activity']]
 
-        bax_mean = bax_mean + dataDict["accelX"]
-        bay_mean = bay_mean + dataDict["accelY"]
-        baz_mean = baz_mean + dataDict["accelZ"]
-        bgx_mean = bgx_mean + dataDict["gyroX"]
-        bgy_mean = bgy_mean + dataDict["gyroY"]
-        bgz_mean = bgz_mean + dataDict["gyroZ"]
-        bmx_mean = bmx_mean + dataDict["magnetX"]
-        bmy_mean = bmy_mean + dataDict["magnetY"]
-        bmz_mean = bmz_mean + dataDict["magnetZ"]
 
-        accelx_arr.append(dataDict["accelX"])
+        bax_mean.append(dataDict["accelX"])
+        bay_mean.append(dataDict["accelY"])
+        baz_mean.append(dataDict["accelZ"])
+        bgx_mean.append(dataDict["gyroX"])
+        bgy_mean.append(dataDict["gyroX"])
+        bgz_mean.append(dataDict["gyroY"])
+
+
+        # bax_mean = bax_mean + dataDict["accelX"]
+        # bay_mean = bay_mean + dataDict["accelY"]
+        # baz_mean = baz_mean + dataDict["accelZ"]
+        # bgx_mean = bgx_mean + dataDict["gyroX"]
+        # bgy_mean = bgy_mean + dataDict["gyroY"]
+        # bgz_mean = bgz_mean + dataDict["gyroZ"]
+        # bmx_mean = bmx_mean + dataDict["magnetX"]
+        # bmy_mean = bmy_mean + dataDict["magnetY"]
+        # bmz_mean = bmz_mean + dataDict["magnetZ"]
+        # accelx_arr.append(dataDict["accelX"])
         # accely_arr.append(dataDict["accelX"])
         # accelz_arr.append(dataDict["accelX"])
 
@@ -211,15 +223,40 @@ class MovementSensorMPU9250(Sensor):
         Remeber to adjust accordingly to how you build the model and the ble laptop transfer sampling rate
         """
 
+        #top20_df = df[['hax_p25', 'hgy_p75', 'hay_median', 'hgx_mean', 'hgy_mean', 'hgx_p25', 'hax_median', 'hay_p75', 'hgy_p25', 'hax_p10',
+        # 'hgx_median', 'hay_p90', 'hgx_p10', 'hay_min', 'hax_max', 'haz_median', 'hay_mean', 'hax_mean', 'hgy_var', 'hgz_min', 'activity']]
+
         if count == 50:
-            arr.append(bax_mean/count)
-            arr.append(bay_mean/count)
-            arr.append(baz_mean/count)
+            arr.append(np.percentile(bax_mean,25))
+            arr.append(np.percentile(bgy_mean,75))
+            arr.append(np.median(bay_mean))
+            arr.append(np.mean(bgx_mean))
+            arr.append(np.mean(bgy_mean))
+            arr.append(np.percentile(bgx_mean,25))
+            arr.append(np.median(bax_mean))
+            arr.append(np.percentile(bay_mean,75))
+            arr.append(np.percentile(bgy_mean,25))
+            arr.append(np.percentile(bax_mean,10))
+            arr.append(np.median(bgx_mean))
+            arr.append(np.percentile(bay_mean,90))
+            arr.append(np.percentile(bgx_mean,10))
+            arr.append(np.min(bay_mean))
+            arr.append(np.max(bax_mean))
+            arr.append(np.median(baz_mean))
+            arr.append(np.mean(bay_mean))
+            arr.append(np.mean(bax_mean))
+            arr.append(np.var(bgy_mean))
+            arr.append(np.min(bgz_mean))
 
-            arr.append(bgx_mean/count)
-            arr.append(bgy_mean/count)
-            arr.append(bgz_mean/count)
-
+            print(arr)
+            # arr.append(bax_mean/count)
+            # arr.append(bay_mean/count)
+            # arr.append(baz_mean/count)
+            #
+            # arr.append(bgx_mean/count)
+            # arr.append(bgy_mean/count)
+            # arr.append(bgz_mean/count)
+            # #
             # arr.append(bmx_mean/count)
             # arr.append(bmy_mean/count)
             # arr.append(bmz_mean/count)
@@ -232,30 +269,35 @@ class MovementSensorMPU9250(Sensor):
             json_msg = {
                 'sensor': 1,
                 'payload': arr,
-                 'peak': accelx_arr
+                 'peak': bax_mean
             }
             mqtt_pub.publish(json.dumps(json_msg))
 
 
             #after message is published reset values for next input of data
             count = 0
-            bax_mean = 0
-            bay_mean = 0
-            baz_mean = 0
-            bgx_mean = 0
-            bgy_mean = 0
-            bgz_mean = 0
+            # bax_mean = 0
+            # bay_mean = 0
+            # baz_mean = 0
+            # bgx_mean = 0
+            # bgy_mean = 0
+            # bgz_mean = 0
             bmx_mean = 0
             bmy_mean = 0
             bmz_mean = 0
             accelx_arr.clear()
             arr.clear()
+            bax_mean.clear()
+            bay_mean.clear()
+            baz_mean.clear()
+            bgx_mean.clear()
+            bgy_mean.clear()
+            bgz_mean.clear()
 
 
-            # accel_mag = 0
-            # gyro_mag = 0
-            # mag_mag = 0
-
+            accel_mag = 0
+            gyro_mag = 0
+            mag_mag = 0
 
 
 class AccelerometerSensorMovementSensorMPU9250(MovementSensorMPU9250SubService):
@@ -303,7 +345,7 @@ class GyroscopeSensorMovementSensorMPU9250(MovementSensorMPU9250SubService):
         rawVals = data[0:3]
         valueTup = tuple([ v*self.scale for v in rawVals ])
         dictValue = {"gyroX" : valueTup[0] , "gyroY": valueTup[1], "gyroZ": valueTup[2]}
-        print("[MovementSensor] Gyroscope:", dictValue)
+        #print("[MovementSensor] Gyroscope:", dictValue)
         return dictValue
 
 
@@ -448,5 +490,4 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run(address))
     loop.run_forever()
-
 
