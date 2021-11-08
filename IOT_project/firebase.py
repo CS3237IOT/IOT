@@ -32,7 +32,6 @@ def on_message(client, userdata, msg):
         value = recv_dict['peak_count']
         ref = db.reference('pushup_count')
         current_value = ref.get()
-        print(current_value)
         value = int(current_value) + int(value)
         print(value)
         ref.set(value)
@@ -41,7 +40,6 @@ def on_message(client, userdata, msg):
         value = recv_dict['peak_count']
         ref = db.reference('situp_count')
         current_value = ref.get()
-        print(current_value)
         value = int(current_value) + int(value)
         print(value)
         ref.set(value)
@@ -49,7 +47,6 @@ def on_message(client, userdata, msg):
     if recv_dict['type'] == 'peak_jump':
         value = recv_dict['peak_count']
         ref = db.reference('jump_count')
-        print(current_value)
         current_value = ref.get()
         value = int(current_value) + int(value)
         print(value)
@@ -77,6 +74,4 @@ if __name__ == "__main__":
         'databaseURL': 'https://nusiot-4b3c2-default-rtdb.asia-southeast1.firebasedatabase.app/'
     })
     main()
-
-
 
