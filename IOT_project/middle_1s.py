@@ -17,12 +17,12 @@ global count
 count = 0
 
 thisdict = {
-  "0.0": "idle",
-  "1.0": "jumping jack",
-  "2.0": "push-up",
-  "3.0": "running",
-  "4.0": "sit-up",
-  "5.0": "walking"
+  "0": "idle",
+  "1": "jumping jack",
+  "2": "push-up",
+  "3": "running",
+  "4": "sit-up",
+  "5": "walking"
 }
 
 #activities = ['idles', 'jumping jack', 'push-up', 'running', 'Sit-ups', 'walking']
@@ -58,11 +58,10 @@ def on_message(client, userdata, msg):
         count = count + sensor
         peak_data = recv_dict['peak']
 
-
     if count == int(1):
-        #features = arr
-        #transformed_data = scaler.transform([features])
-        value = loaded_rf.predict([arr])
+        features = arr
+        transformed_data = scaler.transform([features])
+        value = loaded_rf.predict(transformed_data)
         print(value[0])
         print(thisdict[str(value[0])])
         activity = thisdict[str(value[0])]
@@ -74,7 +73,7 @@ def on_message(client, userdata, msg):
 
 
         if activity == 'push-up':
-            threshold = 0.8 * max(peak_data)
+            threshold = 0.98 * max(peak_data)
             peaks, _ = find_peaks(peak_data, height=threshold)
             print(len(peaks))
             json_msg = {
@@ -84,7 +83,7 @@ def on_message(client, userdata, msg):
             mqttPeak_pub.publish(json.dumps(json_msg))
 
         if activity == 'sit-up':
-            threshold = 0.8 * max(peak_data)
+            threshold = 0.96 * max(peak_data)
             peaks, _ = find_peaks(peak_data, height=threshold)
             print(len(peaks))
             json_msg = {
@@ -94,7 +93,7 @@ def on_message(client, userdata, msg):
             mqttPeak_pub.publish(json.dumps(json_msg))
 
         if activity == 'jumping jack':
-            threshold = 0.8 * max(peak_data)
+            threshold = 0.99 * max(peak_data)
             peaks, _ = find_peaks(peak_data, height=threshold)
             print(len(peaks))
             json_msg = {
@@ -118,8 +117,8 @@ def main():
     #set up the MQTT publisher
     global loaded_rf
     global scaler
-    loaded_rf = joblib.load("./random_forest.joblib")
-    #scaler = joblib.load('scaler_data.joblib')
+    loaded_rf = joblib.load("onevsonelinearsvc.joblib")
+    scaler = joblib.load('scaler.joblib')
     setup("localhost")
     mqtt_pub.run()
     mqttPeak_pub.run()
