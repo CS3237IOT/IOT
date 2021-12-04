@@ -1,5 +1,5 @@
 # NUS CS3227 Internet of Things Final Project <br />
-Done by: Qing Bowen, Tsai Ming Chin, Mao Yiru, Lian Jiade
+##### Done by: Qing Bowen, Tsai Ming Chin, Mao Yiru, Lian Jiade
 
 
 1.`IOT_project` Repository contains python scripts for laptop to receive sensor data from TI CC2650 SensorTags for data pre-processing, Machine learning prediction and upload of firebase Real-Time Database 
