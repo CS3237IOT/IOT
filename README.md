@@ -16,12 +16,12 @@ A comprehensive IoT fitness product that aims to help Singapore and Chinese stud
 
 
 # Main Features
-1. Fitness Activity Recognition for Running, idle, walking, push-up, sit-up and Jumpig Jack and storage of fitness data for long-term analytics
-3. Pose Detection of Push-up posture. Determines "standard close arm" and "not standard wide arm" push-up
-4. Heat injury Risk warning. 5 heat injury risks levels (Safe, Attention, Warning, Dangerous and Extremely Dangerous) based on the heat index
+1. **Fitness Activity Recognition** for Running, idle, walking, push-up, sit-up and Jumpig Jack
+2. **Storage of all Fitness Data** for long-term analytics and activity tracking
+3. **Pose Detection of Push-up Posture** Determines "standard close arm" and "not standard wide arm" push-up
+4. **Heat injury Risk Warning** 5 heat injury risks levels (Safe, Attention, Warning, Dangerous and Extremely Dangerous) based on the NOAA Heat Index
 
 # IOT System Architecture <br />
 ![Overall Block Diagram](https://github.com/CS3237IOT/IOT/blob/main/resources/System_Design.png)
 
-
-
+**Take a look at the final report** `Group22_final_report.pdf` **for more detailed description of the Features, Machine Learning Techniques and System Design**
