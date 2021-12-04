@@ -9,8 +9,9 @@
 
 # Product Name: FitTrack
 **Product Description**<br />
-A comprehensive IoT fitness product that aims to help Singapore and Chinese students prepare for their annual fitness exams and also for users to monitior and track their daily physical activity levels for their long term
-**App Interface **
+A comprehensive IoT fitness product that aims to help Singapore and Chinese students prepare for their annual fitness exams and also for users to monitior and track their daily physical activity levels for their long term health needs <br />
+
+**App Interface**
 ![App Interface Diagram](https://github.com/CS3237IOT/IOT/blob/main/resources/app_Interface.png)
 
 
