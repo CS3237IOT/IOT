@@ -17,7 +17,7 @@ A comprehensive IoT fitness product that aims to help Singapore and Chinese stud
 1. Heat injury Risk warning. 5 heat injury risks levels (Safe, Attention, Warning, Dangerous and Extremely Dangerous) based on the heat index
 
 
-![Overall Block Diagram](overall.png)
+![Overall Block Diagram](IOT/resources/System_Design.png)
 
 
 
