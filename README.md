@@ -1,6 +1,4 @@
-# National University of Singapore 
-# CS3227 Internet of Things Final Project
-# Product Name: FitTrack
+# National University of Singapore CS3227 Internet of Things Final Project
 # Done by: Qing Bowen, Tsai Ming Chin, Mao Yiru, Lian Jiade
 
 1. Repository contains python scripts for laptop to receive sensor data from TI CC2650 SensorTags for data pre-processing, Machine learning prediction and upload of firebase Real-Time Database `IOT_project`
@@ -8,8 +6,8 @@
 1. Repository contains machine learning model for fitness activity recognition using accelerometer and gyrometer data `ActivityRecognition_ML`
 1. Repository contains machine learning model for heat injury risk warning using temperature and humudity data `HeatInjury_ML`
 
-
-# Product Description
+# Product Name: FitTrack
+Product Description
 A comprehensive IoT fitness product that aims to help Singapore and Chinese students prepare for their annual fitness exams and also for users to monitior and track their daily physical activity levels for their long term
 
 # Main Features
