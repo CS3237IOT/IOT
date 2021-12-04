@@ -16,8 +16,8 @@ A comprehensive IoT fitness product that aims to help Singapore and Chinese stud
 1. Pose Detection of Push-up posture. Determines "standard close arm" and "not standard wide arm" push-up
 1. Heat injury Risk warning. 5 heat injury risks levels (Safe, Attention, Warning, Dangerous and Extremely Dangerous) based on the heat index
 
-
-![Overall System Diagram](https://github.com/CS3237IOT/IOT/blob/main/resources/System_Design.png)
+# Overall System Architecture <br />
+(https://github.com/CS3237IOT/IOT/blob/main/resources/System_Design.png)
 
 
 
