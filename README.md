@@ -8,7 +8,7 @@
 1. `HeatInjury_ML` Repository contains machine learning model for heat injury risk warning using temperature and humudity data 
 
 # Product Name: FitTrack
-**Product Description**\n
+**Product Description**<br />
 A comprehensive IoT fitness product that aims to help Singapore and Chinese students prepare for their annual fitness exams and also for users to monitior and track their daily physical activity levels for their long term
 
 # Main Features
