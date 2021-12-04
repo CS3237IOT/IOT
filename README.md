@@ -2,10 +2,10 @@
 ### Done by: Qing Bowen, Tsai Ming Chin, Mao Yiru, Lian Jiade
 
 
-1. `IOT_project` Repository contains python scripts for laptop to receive sensor data from TI CC2650 SensorTags for data pre-processing, Machine learning prediction and upload of firebase Real-Time Database 
-2. `IOTAPP` Repository contains Java code for the Android App which displays real-time data of your current physical activity and long-term storage of past exercise data 
-3. `ActivityRecognition_ML` Repository contains machine learning model for fitness activity recognition using accelerometer and gyrometer data 
-4. `HeatInjury_ML` Repository contains machine learning model for heat injury risk warning using temperature and humudity data 
+1. `IOT_project` Repository contains python scripts for laptop to receive sensor data from TI CC2650 SensorTags for data pre-processing, Machine learning prediction and upload of data to Firebase Real-Time Database 
+2. `IOTAPP` Repository contains Java code for the Android App which displays real-time data of your current physical activity, long-term storage of past exercise data and Pose Detection of Push-up to determine the corectness of the push-up posture
+3. `ActivityRecognition_ML` Repository contains machine learning model for fitness activity recognition using accelerometer and gyrometer data collected from TI CC2650 Sensor tags
+4. `HeatInjury_ML` Repository contains machine learning model for heat injury risk warning using temperature and humudity data collected from TI CC2650 Sensor tags
 
 # Product Name: FitTrack
 **Product Description**<br />
