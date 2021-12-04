@@ -10,13 +10,16 @@
 # Product Name: FitTrack
 **Product Description**<br />
 A comprehensive IoT fitness product that aims to help Singapore and Chinese students prepare for their annual fitness exams and also for users to monitior and track their daily physical activity levels for their long term
+**App Interface **
+![App Interface Diagram](https://github.com/CS3237IOT/IOT/blob/main/resources/app_Interface.png)
+
 
 # Main Features
 1. Fitness Activity Recognition for Running, idle, walking, push-up, sit-up and Jumpig Jack
 1. Pose Detection of Push-up posture. Determines "standard close arm" and "not standard wide arm" push-up
 1. Heat injury Risk warning. 5 heat injury risks levels (Safe, Attention, Warning, Dangerous and Extremely Dangerous) based on the heat index
 
-# Overall System Architecture <br />
+# IOT System Architecture <br />
 ![Overall Block Diagram](https://github.com/CS3237IOT/IOT/blob/main/resources/System_Design.png)
 
 
