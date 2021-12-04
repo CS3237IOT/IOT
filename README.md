@@ -1,4 +1,4 @@
-# National University of Singapore CS3227 Internet of Things Final Project
+# NUS CS3227 Internet of Things Final Project
 ## Done by: Qing Bowen, Tsai Ming Chin, Mao Yiru, Lian Jiade
 
 
