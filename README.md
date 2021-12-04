@@ -24,4 +24,5 @@ A comprehensive IoT fitness product that aims to help Singapore and Chinese stud
 # IOT System Architecture <br />
 ![Overall Block Diagram](https://github.com/CS3237IOT/IOT/blob/main/resources/System_Design.png)
 
-**Take a look at the final report** `Group22_final_report.pdf` **for more detailed description of the Features, Machine Learning Techniques and System Design**
+# Detailed Explaination of Project
+*Take a look at the final report* `Group22_final_report.pdf` *for more detailed description of the Features, Machine Learning Techniques and System Design*
