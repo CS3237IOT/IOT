@@ -3,7 +3,7 @@ astunparse==1.6.3
 bleak==0.12.1
 CacheControl==0.12.6
 cachetools==4.2.2
-certifi==2021.5.30
+certifi==2022.12.7
 cffi==1.14.6
 charset-normalizer==2.0.6
 clang==5.0
